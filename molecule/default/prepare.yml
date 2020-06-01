@@ -1,0 +1,21 @@
+- name: Prepare
+  hosts: all
+  become: true
+  tasks:
+  - name: Change CentOS mirror
+    script: /provision/scripts/change_centos_mirror.sh
+    when: >
+      ansible_distribution == "CentOS"
+      and ansible_distribution_major_version == "7"
+  
+  - name: Change Ubuntu1804 mirror
+    script: /provision/scripts/change_ubuntu1804_mirror.sh
+    when: >
+        ansible_distribution == "Ubuntu"
+        and ansible_distribution_version == "18.04"
+
+  - name: Change Debian9 mirror
+    script: /provision/scripts/change_debian9_mirror.sh
+    when: >
+        ansible_distribution == "Debian"
+        and ansible_distribution_major_version == "9"

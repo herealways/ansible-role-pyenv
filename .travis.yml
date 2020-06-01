@@ -1,0 +1,13 @@
+---
+language: python
+services: docker
+
+install:
+  # Install molecule
+  - pip install molecule yamllint ansible-lint docker
+
+script:
+  - molecule test
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/

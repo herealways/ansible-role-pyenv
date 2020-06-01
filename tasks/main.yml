@@ -1,0 +1,80 @@
+- name: Setup Debian dependncies.
+  include_tasks: setup-Debian.yml
+  when: ansible_os_family == "Debian"
+
+- name: Setup RedHat dependncies.
+  include_tasks: setup-RedHat.yml
+  when: ansible_os_family == "RedHat"
+
+- name: Check if pyenv is already installed
+  stat:
+    path: "~/.pyenv"
+  register: pyenv_stat_result
+  become: false
+
+- name: Install pyenv
+  block:
+  - name: Get pyenv script.
+    get_url:
+      url: "https://pyenv.run"
+      dest: "~/pyenv.sh"
+      mode: "0755"
+    when: ansible_os_family == "Debian"
+    register: result
+    retries: 5
+    until: result is not failed
+
+  - name: Get pyenv script on Centos7 using curl to avoid cert verify error
+    shell: "curl https://pyenv.run -o ~/pyenv.sh && chmod 755 ~/pyenv.sh"
+    when: >
+      ansible_distribution == "CentOS"
+      and ansible_distribution_major_version == "7"
+
+  - name: Install pyenv using script.
+    command: "~/pyenv.sh"
+    args:
+      creates: "~/.pyenv/bin/pyenv"
+
+  - name: Remove installation script.
+    file:
+      path: "~/pyenv.sh"
+      state: absent
+  become: false
+  when: not pyenv_stat_result.stat.exists
+
+- name: Update bashrc
+  blockinfile:
+    path: "~/.bashrc"
+    block: |
+      # pyenv
+      export PATH="~/.pyenv/bin:$PATH"
+      eval "$(pyenv init -)"
+      eval "$(pyenv virtualenv-init -)"
+
+- name: Download python package as cache
+  block:
+    - name: Get pyenv root
+      command: "~/.pyenv/bin/pyenv root"
+      register: pyenv_root
+      changed_when: false
+
+    - name: Create cache dir
+      file:
+        path: "{{ pyenv_root.stdout }}/cache"
+        state: directory
+  when: download_cache
+
+- name: Download python packages
+  get_url:
+    url: "{{ python_download_url }}/{{ item }}/Python-{{ item }}.tar.xz"
+    dest: "{{ pyenv_root.stdout }}/cache"
+  loop: "{{ python_versions }}"
+  register: result
+  retries: 5
+  until: result is not failed
+
+- name: Install specified versions
+  command: "~/.pyenv/bin/pyenv install -v {{ item }}"
+  args:
+    creates: "{{ pyenv_root.stdout }}/versions/{{ item }}"
+  loop: "{{ python_versions }}"

@@ -1,0 +1,45 @@
+# Download python from specified url as cache.
+# This may be useful when the default pyenv install is very slow.
+download_cache: true
+python_download_url: https://npm.taobao.org/mirrors/python/
+
+python_versions:
+    - 3.7.7
+
+# Python dependencies for RedHat platform
+RedHat_dependencies:
+    - zlib-devel
+    - bzip2
+    - bzip2-devel
+    - readline-devel
+    - sqlite
+    - sqlite-devel
+    - openssl-devel
+    - xz
+    - xz-devel
+    - libffi-devel
+    - ca-certificates
+    - python2-certifi
+    - git
+    - "@Development tools"
+
+# Python dependencies for Debian platform
+Debian_dependencies:
+    - make 
+    - build-essential
+    - libssl-dev
+    - zlib1g-dev
+    - libbz2-dev
+    - libreadline-dev
+    - libsqlite3-dev
+    - wget
+    - curl
+    - llvm
+    - libncurses5-dev
+    - libncursesw5-dev
+    - xz-utils
+    - tk-dev
+    - libffi-dev
+    - liblzma-dev
+    - python-openssl
+    - git

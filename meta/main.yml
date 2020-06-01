@@ -1,0 +1,19 @@
+galaxy_info:
+  author: herealways
+  description: Install pyenv.
+  license: license (MIT)
+  min_ansible_version: 2.9
+  platforms:
+  - name: EL
+    versions:
+    - 7
+  - name: Debian
+    versions:
+    - stretch
+  - name: Ubuntu
+    versions:
+      - bionic
+
+  galaxy_tags: ['python']
+
+dependencies: []

@@ -1,0 +1,5 @@
+- name: Install python dependencies on Debian platform.
+  apt:
+    name: "{{ item }}"
+  loop: "{{ Debian_dependencies }}"
+  become: yes

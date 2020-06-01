@@ -1,0 +1,5 @@
+- name: Install python dependencies on RedHat platform.
+  yum:
+    name: "{{ item }}"
+  loop: "{{ RedHat_dependencies }}"
+  become: yes
