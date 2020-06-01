@@ -1,5 +1,7 @@
 # Ansible Role: Docker
 
+[![Build Status](https://travis-ci.com/herealways/ansible-role-pyenv.svg?branch=master)](https://travis-ci.com/herealways/ansible-role-pyenv)
+
 An Ansible Role that installs [pyenv](https://github.com/pyenv/pyenv) and specified python versions using pyenv on Linux.
 
 ## Requirements
