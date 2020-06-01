@@ -50,6 +50,7 @@
       export PATH="~/.pyenv/bin:$PATH"
       eval "$(pyenv init -)"
       eval "$(pyenv virtualenv-init -)"
+  become: false
 
 - name: Download python package as cache
   block:
@@ -63,6 +64,7 @@
         path: "{{ pyenv_root.stdout }}/cache"
         state: directory
   when: download_cache
+  become: false
 
 - name: Download python packages
   get_url:
@@ -72,9 +74,11 @@
   register: result
   retries: 5
   until: result is not failed
+  become: false
 
 - name: Install specified versions
   command: "~/.pyenv/bin/pyenv install -v {{ item }}"
   args:
     creates: "{{ pyenv_root.stdout }}/versions/{{ item }}"
   loop: "{{ python_versions }}"
+  become: false
