@@ -9,7 +9,6 @@ An Ansible Role that installs [pyenv](https://github.com/pyenv/pyenv) and specif
 None.
 
 ## Role Variables
---------------
 
 Variables in defaults/main.yml are listed below:
 
