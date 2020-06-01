@@ -1,12 +1,14 @@
 ---
 - name: Converge
   hosts: all
-  tasks:
+  pre_tasks:
     - name: Update apt cache
       apt:
         update_cache: true
       when: ansible_os_family == 'Debian'
+      changed_when: false
 
+  tasks:
     - name: "Include ansible-role-pyenv"
       include_role:
         name: "ansible-role-pyenv"
