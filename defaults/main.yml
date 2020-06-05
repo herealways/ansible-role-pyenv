@@ -19,7 +19,6 @@ RedHat_dependencies:
     - xz-devel
     - libffi-devel
     - ca-certificates
-    - python2-certifi
     - git
     - "@Development tools"
 
