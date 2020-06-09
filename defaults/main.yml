@@ -6,6 +6,10 @@ python_download_url: https://npm.taobao.org/mirrors/python/
 python_versions:
     - 3.7.7
 
+# Use proxy to execute pyenv installation scirpt if needed.
+pyenv_use_proxy: false
+pyenv_proxy_url: 127.0.0.1:1080
+
 # Python dependencies for RedHat platform
 RedHat_dependencies:
     - zlib-devel

@@ -12,7 +12,9 @@ None.
 
 Variables in defaults/main.yml are listed below:
 
-`download_cache`: boolean. If it is true, this role will download python from `python_download_url` as cache. This may be useful when the default pyenv install is very slow.
+`download_cache`: If it is true, this role will download python from `python_download_url` as cache. This may be useful when the default pyenv install is very slow. Default value is true.
+
+`pyenv_use_proxy`: If it is true, this role will use proxy set by `pyenv_proxy_url` to execute the pyenv installation script. This may be useful when you cannot access github directly.
 
 `python_download_url`: Where to download python. It is only useful when `download_cache` is true.
 
