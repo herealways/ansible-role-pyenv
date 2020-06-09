@@ -26,13 +26,13 @@
 
   - name: Install pyenv using script.
     command: "~/pyenv.sh"
-    when: not use_proxy
+    when: not pyenv_use_proxy
 
   - name: Set proxy and install pyenv using script.
     command: "~/pyenv.sh"
     environment:
-      all_proxy: "{{ proxy_url }}"
-    when: use_proxy
+      all_proxy: "{{ pyenv_proxy_url }}"
+    when: pyenv_use_proxy
 
   - name: Remove installation script.
     file:
